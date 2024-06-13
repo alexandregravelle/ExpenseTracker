@@ -33,7 +33,7 @@
 import SwiftUI
 
 struct ExpenseItemView: View {
-  let expenseItem: ExpenseModel
+  let expenseItem: ExpenseModelProtocol
 
   static let dateFormatter: DateFormatter = {
     var dateFormatter = DateFormatter()
@@ -68,7 +68,15 @@ struct ExpenseItemView: View {
 }
 
 struct ExpenseItemView_Previews: PreviewProvider {
+  struct PreviewExpenseModel: ExpenseModelProtocol {
+    var title: String? = "Preview Item Title"
+    var price: Double = 12.34
+    var comment: String? = "Preview Item Comment"
+    var date: Date? = Date(timeIntervalSinceNow: 60)
+    var id: UUID? = UUID()
+  }
+
   static var previews: some View {
-    ExpenseItemView(expenseItem: PersistenceController.previewItem)
+    ExpenseItemView(expenseItem: PreviewExpenseModel())
   }
 }

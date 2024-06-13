@@ -384,7 +384,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "ExpenseTracker/Preview\\ Content";
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = J85VPLXM2C;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = ExpenseTracker/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -404,7 +404,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "ExpenseTracker/Preview\\ Content";
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = J85VPLXM2C;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = ExpenseTracker/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (

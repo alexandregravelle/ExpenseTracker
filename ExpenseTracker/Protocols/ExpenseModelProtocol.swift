@@ -30,48 +30,12 @@
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 /// THE SOFTWARE.
 
-import CoreData
+import Foundation
 
-struct PersistenceController {
-  static let shared = PersistenceController()
-
-  let container: NSPersistentContainer
-
-  init(inMemory: Bool = false) {
-    container = NSPersistentContainer(name: "ExpensesModel")
-
-    // Use in-memory storage for showing fake date in SwiftUI Previews
-    if inMemory {
-      container.persistentStoreDescriptions.first?.url = URL(fileURLWithPath: "/dev/null")
-    }
-
-    container.loadPersistentStores { _, error in
-      if let error = error as NSError? {
-        fatalError("Unresolved error \(error)")
-      }
-    }
-  }
-
-  static var preview: PersistenceController = {
-    let result = PersistenceController(inMemory: true)
-    let viewContext = result.container.viewContext
-
-    for index in 0..<5 {
-      let newItem = ExpenseModel(context: viewContext)
-      newItem.title = "Test Title \(index)"
-      newItem.date = Date(timeIntervalSinceNow: Double(index * 60))
-      newItem.comment = "Test Comment \(index)"
-      newItem.price = Double(index + 1) * 12.3
-      newItem.id = UUID()
-    }
-
-    do {
-      try viewContext.save()
-    } catch {
-      let nsError = error as NSError
-      fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
-    }
-
-    return result
-  }()
+protocol ExpenseModelProtocol {
+  var title: String? { get }
+  var price: Double { get }
+  var comment: String? { get }
+  var date: Date? { get }
+  var id: UUID? { get }
 }

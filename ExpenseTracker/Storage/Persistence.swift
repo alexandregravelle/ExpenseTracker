@@ -1,4 +1,4 @@
-/// Copyright (c) 2021 Razeware LLC
+/// Copyright (c) 2024 Razeware LLC
 /// 
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
@@ -30,44 +30,59 @@
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 /// THE SOFTWARE.
 
-import SwiftUI
-import Combine
+import CoreData
 
-struct DailyExpensesView: View {
-  @State private var isAddPresented = false
-  @ObservedObject var dataSource: DailyReportsDataSource
+struct PersistenceController {
+  static let shared = PersistenceController()
 
-  var body: some View {
-    VStack {
-      List {
-        ForEach(dataSource.currentEntries, id: \.id) { item in
-          ExpenseItemView(expenseItem: item)
-        }
-      }
-      TotalView(totalExpense: dataSource.currentEntries.reduce(0) { $0 + $1.price })
+  let container: NSPersistentContainer
+
+  init(inMemory: Bool = false) {
+    container = NSPersistentContainer(name: "ExpensesModel")
+
+    // Use in-memory storage for showing fake date in SwiftUI Previews
+    if inMemory {
+      container.persistentStoreDescriptions.first?.url = URL(fileURLWithPath: "/dev/null")
     }
-    .toolbar {
-      Button(action: {
-        isAddPresented.toggle()
-      }, label: {
-        Image(systemName: "plus")
-      })
-    }
-    .fullScreenCover(
-      isPresented: $isAddPresented) {
-      AddExpenseView { title, price, time, comment in
-        dataSource.saveEntry(title: title, price: price, date: time, comment: comment)
+
+    container.loadPersistentStores { _, error in
+      if let error = error as NSError? {
+        fatalError("Unresolved error \(error)")
       }
     }
-    .onAppear {
-      dataSource.prepare()
-    }
   }
-}
 
-struct DailyExpensesView_Previews: PreviewProvider {
-  static var previews: some View {
-    let reportsDataSource = DailyReportsDataSource(viewContext: PersistenceController.preview.container.viewContext)
-    DailyExpensesView(dataSource: reportsDataSource)
-  }
+  static var preview: PersistenceController = {
+    let result = PersistenceController(inMemory: true)
+    let viewContext = result.container.viewContext
+
+    for index in 0..<5 {
+      let newItem = ExpenseModel(context: viewContext)
+      newItem.title = "Test Title \(index)"
+      newItem.date = Date(timeIntervalSinceNow: Double(index * 60))
+      newItem.comment = "Test Comment \(index)"
+      newItem.price = Double(index + 1) * 12.3
+      newItem.id = UUID()
+    }
+
+    do {
+      try viewContext.save()
+    } catch {
+      let nsError = error as NSError
+      fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
+    }
+
+    return result
+  }()
+
+  static let previewItem: ExpenseModel = {
+    let newItem = ExpenseModel(context: preview.container.viewContext)
+    newItem.title = "Preview Item Title"
+    newItem.date = Date(timeIntervalSinceNow: 60)
+    newItem.comment = "Preview Item Comment"
+    newItem.price = 12.34
+    newItem.id = UUID()
+
+    return newItem
+  }()
 }

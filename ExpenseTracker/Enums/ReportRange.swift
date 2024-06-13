@@ -1,4 +1,4 @@
-/// Copyright (c) 2021 Razeware LLC
+/// Copyright (c) 2024 Razeware LLC
 /// 
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
@@ -30,44 +30,22 @@
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 /// THE SOFTWARE.
 
-import SwiftUI
-import Combine
+import Foundation
 
-struct MonthlyExpensesView: View {
-  @State private var isAddPresented = false
-  @ObservedObject var dataSource: MonthlyReportsDataSource
+enum ReportRange: String, CaseIterable {
+  case daily = "Today"
+  case weekly = "This week"
+  case monthly = "This month"
 
-  var body: some View {
-    VStack {
-      List {
-        ForEach(dataSource.currentEntries, id: \.id) { item in
-          ExpenseItemView(expenseItem: item)
-        }
-      }
-      TotalView(totalExpense: dataSource.currentEntries.reduce(0) { $0 + $1.price })
+  func timeRange() -> (Date, Date) {
+    let now = Date()
+    switch self {
+    case .daily:
+      return (now.startOfDay, now.endOfDay)
+    case .weekly:
+      return (now.startOfWeek, now.endOfWeek)
+    case .monthly:
+      return (now.startOfMonth, now.endOfMonth)
     }
-    .toolbar {
-      Button(action: {
-        isAddPresented.toggle()
-      }, label: {
-        Image(systemName: "plus")
-      })
-    }
-    .fullScreenCover(
-      isPresented: $isAddPresented) {
-      AddExpenseView { title, price, time, comment in
-        dataSource.saveEntry(title: title, price: price, date: time, comment: comment)
-      }
-    }
-    .onAppear {
-      dataSource.prepare()
-    }
-  }
-}
-
-struct MonthlyExpensesView_Previews: PreviewProvider {
-  static var previews: some View {
-    let reportsDataSource = MonthlyReportsDataSource(viewContext: PersistenceController.preview.container.viewContext)
-    MonthlyExpensesView(dataSource: reportsDataSource)
   }
 }

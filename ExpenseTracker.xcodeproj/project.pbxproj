@@ -12,6 +12,7 @@
 		18D775C722AD944400AE281E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 18D775C622AD944400AE281E /* Assets.xcassets */; };
 		18D775CA22AD944400AE281E /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 18D775C922AD944400AE281E /* Preview Assets.xcassets */; };
 		18D775D822AD963800AE281E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 18D775DA22AD963800AE281E /* LaunchScreen.storyboard */; };
+		EF5AB75A2C1CBB9C0048EAD1 /* SaveEntryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF5AB7592C1CBB9C0048EAD1 /* SaveEntryProtocol.swift */; };
 		EF97F96A2C1B492C00AC5738 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF97F9692C1B492C00AC5738 /* Persistence.swift */; };
 		EF97F96D2C1B71E700AC5738 /* ReportRange.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF97F96C2C1B71E700AC5738 /* ReportRange.swift */; };
 		EF97F9702C1B8F9E00AC5738 /* ReportReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF97F96F2C1B8F9E00AC5738 /* ReportReader.swift */; };
@@ -36,6 +37,7 @@
 		18D775C922AD944400AE281E /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		18D775CE22AD944400AE281E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		18D775DE22AD96B400AE281E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		EF5AB7592C1CBB9C0048EAD1 /* SaveEntryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveEntryProtocol.swift; sourceTree = "<group>"; };
 		EF97F9692C1B492C00AC5738 /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
 		EF97F96C2C1B71E700AC5738 /* ReportRange.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportRange.swift; sourceTree = "<group>"; };
 		EF97F96F2C1B8F9E00AC5738 /* ReportReader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportReader.swift; sourceTree = "<group>"; };
@@ -119,6 +121,7 @@
 			children = (
 				EF97F96F2C1B8F9E00AC5738 /* ReportReader.swift */,
 				EF97F9712C1B8FAB00AC5738 /* ExpenseModelProtocol.swift */,
+				EF5AB7592C1CBB9C0048EAD1 /* SaveEntryProtocol.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -272,6 +275,7 @@
 				EF97F9722C1B8FAB00AC5738 /* ExpenseModelProtocol.swift in Sources */,
 				F5AEF3A325FC2BD700A25CE0 /* AddExpenseView.swift in Sources */,
 				EF97F9772C1B916200AC5738 /* ExpenseModel+Protocol.swift in Sources */,
+				EF5AB75A2C1CBB9C0048EAD1 /* SaveEntryProtocol.swift in Sources */,
 				F52DF9F526013D050047F837 /* ReportsDataSource.swift in Sources */,
 				F5BE6D9E25FD994B0013B09C /* Date.swift in Sources */,
 				EF97F96D2C1B71E700AC5738 /* ReportRange.swift in Sources */,

@@ -65,7 +65,7 @@ class ReportsDataSource: ReportReader, SaveEntryProtocol {
     }
   }
 
-  func saveEntry(title: String, price: Double, date: Date, comment: String) {
+  func saveEntry(title: String, price: Double, date: Date, comment: String) -> Bool {
     let newItem = ExpenseModel(context: viewContext)
     newItem.title = title
     newItem.date = date
@@ -80,6 +80,7 @@ class ReportsDataSource: ReportReader, SaveEntryProtocol {
     }
 
     try? viewContext.save()
+    return true
   }
 
   func delete(entry: ExpenseModel) {

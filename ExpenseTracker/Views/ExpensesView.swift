@@ -79,7 +79,7 @@ struct ExpensesView_Previews: PreviewProvider {
     override init() {
       super.init()
       for index in 1..<6 {
-        saveEntry(
+        _ = saveEntry(
           title: "Test Title \(index)",
           price: Double(index + 1) * 12.3,
           date: Date(timeIntervalSinceNow: Double(index * -60)),
@@ -90,7 +90,7 @@ struct ExpensesView_Previews: PreviewProvider {
 
     override func prepare() {}
 
-    func saveEntry(title: String, price: Double, date: Date, comment: String) {
+    func saveEntry(title: String, price: Double, date: Date, comment: String) -> Bool {
       let newEntry = PreviewExpenseEntry(
         title: title,
         price: price,
@@ -98,6 +98,7 @@ struct ExpensesView_Previews: PreviewProvider {
         date: date
       )
       currentEntries.append(newEntry)
+      return true
     }
   }
 
